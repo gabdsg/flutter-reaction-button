@@ -101,13 +101,14 @@ class _ReactionButtonState<T> extends State<ReactionButton<T>> {
         key: _buttonKey,
         behavior: HitTestBehavior.translucent,
         onTapDown: (details) => _showReactionsBox(details.globalPosition),
-        onLongPressStart: (details) => _showReactionsBox(details.globalPosition),
+        onLongPressStart: (details) =>
+            _showReactionsBox(details.globalPosition),
         child: (_selectedReaction ?? widget.reactions.first).icon,
       );
 
   void _showReactionsBox(Offset buttonOffset) async {
     final buttonSize = _buttonKey.widgetSize;
-    final reactionButton = await Navigator.of(context).push(
+    final Reaction<T>? reactionButton = await Navigator.of(context).push(
       PageRouteBuilder(
         opaque: false,
         transitionDuration: const Duration(milliseconds: 200),

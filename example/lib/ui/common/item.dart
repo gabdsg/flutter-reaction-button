@@ -69,7 +69,8 @@ class _ItemState extends State<Item> with AutomaticKeepAliveClientMixin {
                       child: ReactionButtonToggle<String>(
                         onReactionChanged: (String? value, bool isChecked) {
                           debugPrint(
-                              'Selected value: $value, isChecked: $isChecked');
+                            'Selected value: $value, isChecked: $isChecked',
+                          );
                         },
                         reactions: widget.reactions,
                         initialReaction: Example.defaultInitialReaction,

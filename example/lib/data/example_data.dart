@@ -5,7 +5,9 @@ List<Reaction<String>> flagsReactions = [
   Reaction<String>(
     value: 'en',
     previewIcon: _builFlagsdPreviewIcon(
-        'assets/images/united-kingdom-round.png', 'English'),
+      'assets/images/united-kingdom-round.png',
+      'English',
+    ),
     icon: _buildIcon('assets/images/united-kingdom.png'),
   ),
   Reaction<String>(

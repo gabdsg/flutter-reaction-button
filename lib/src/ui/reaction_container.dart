@@ -63,13 +63,14 @@ class ReactionContainer<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onLongPressStart: (details) => _showReactionsBox(context, details.globalPosition),
+      onLongPressStart: (details) =>
+          _showReactionsBox(context, details.globalPosition),
       child: child,
     );
   }
 
   void _showReactionsBox(BuildContext context, Offset buttonOffset) async {
-    final reactionButton = await Navigator.of(context).push(
+    final Reaction<T>? reactionButton = await Navigator.of(context).push(
       PageRouteBuilder(
         opaque: false,
         transitionDuration: const Duration(milliseconds: 200),
