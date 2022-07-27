@@ -17,6 +17,8 @@ class ReactionsBoxItem extends StatefulWidget {
 
   final Stream<DragData?> dragStream;
 
+  final bool selected;
+
   const ReactionsBoxItem({
     Key? key,
     required this.reaction,
@@ -24,6 +26,7 @@ class ReactionsBoxItem extends StatefulWidget {
     required this.scale,
     this.scaleDuration,
     required this.dragStream,
+    this.selected = false,
   }) : super(key: key);
 
   @override
@@ -138,7 +141,15 @@ class _ReactionsBoxItemState extends State<ReactionsBoxItem>
                             child: widget.reaction.title,
                           ),
                         ),
-                        child!,
+                        Container(
+                          decoration: BoxDecoration(
+                            color: widget.selected
+                                ? Colors.blue.withOpacity(0.1)
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: child!,
+                        ),
                       ],
                     ),
                   ),

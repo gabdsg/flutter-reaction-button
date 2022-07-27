@@ -29,12 +29,9 @@ class AppWidget extends StatelessWidget {
                     );
                   },
                   reactions: Example.flagsReactions,
-                  initialReaction: Reaction<String>(
-                    value: null,
-                    icon: Icon(
-                      Icons.language,
-                    ),
-                  ),
+                  builder: (context) {
+                    return Container();
+                  },
                   boxColor: Colors.black.withOpacity(0.5),
                   boxRadius: 10,
                   boxDuration: Duration(milliseconds: 500),

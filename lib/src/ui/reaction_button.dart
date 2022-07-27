@@ -11,9 +11,6 @@ class ReactionButton<T> extends StatefulWidget {
   /// This triggers when reaction button value changed.
   final OnReactionChanged<T> onReactionChanged;
 
-  /// Default reaction button widget
-  final Reaction<T>? initialReaction;
-
   final List<Reaction<T>> reactions;
 
   /// Offset to add to the placement of the box
@@ -52,11 +49,15 @@ class ReactionButton<T> extends StatefulWidget {
   /// Scale duration while dragging [default = const Duration(milliseconds: 100)]
   final Duration? itemScaleDuration;
 
+  final WidgetBuilder builder;
+
+  final T? selectedReaction;
+
   ReactionButton({
     Key? key,
     required this.onReactionChanged,
     required this.reactions,
-    this.initialReaction,
+    required this.builder,
     this.boxOffset = Offset.zero,
     this.boxPosition = VerticalPosition.TOP,
     this.boxHorizontalPosition = HorizontalPosition.START,
@@ -69,6 +70,7 @@ class ReactionButton<T> extends StatefulWidget {
     this.boxReactionSpacing = 0,
     this.itemScale = .3,
     this.itemScaleDuration,
+    this.selectedReaction,
   }) : super(key: key);
 
   @override
@@ -80,9 +82,7 @@ class _ReactionButtonState<T> extends State<ReactionButton<T>> {
 
   Reaction? _selectedReaction;
 
-  void _init() {
-    _selectedReaction = widget.initialReaction;
-  }
+  void _init() {}
 
   @override
   void didUpdateWidget(ReactionButton<T> oldWidget) {
@@ -101,9 +101,10 @@ class _ReactionButtonState<T> extends State<ReactionButton<T>> {
         key: _buttonKey,
         behavior: HitTestBehavior.translucent,
         onTapDown: (details) => _showReactionsBox(details.globalPosition),
-        onLongPressStart: (details) =>
-            _showReactionsBox(details.globalPosition),
-        child: (_selectedReaction ?? widget.reactions.first).icon,
+        onLongPressStart: (details) => _showReactionsBox(
+          details.globalPosition,
+        ),
+        child: widget.builder(context),
       );
 
   void _showReactionsBox(Offset buttonOffset) async {
@@ -128,6 +129,10 @@ class _ReactionButtonState<T> extends State<ReactionButton<T>> {
             reactionSpacing: widget.boxReactionSpacing,
             itemScale: widget.itemScale,
             itemScaleDuration: widget.itemScaleDuration,
+            selectedReaction: Reaction(
+              icon: SizedBox(),
+              value: widget.selectedReaction,
+            ),
           );
         },
       ),
