@@ -40,6 +40,8 @@ class ReactionsBox extends StatefulWidget {
 
   final Reaction? selectedReaction;
 
+  final double? absoluteStartPosition;
+
   const ReactionsBox({
     Key? key,
     required this.buttonOffset,
@@ -57,6 +59,7 @@ class ReactionsBox extends StatefulWidget {
     this.itemScale = .3,
     this.itemScaleDuration,
     this.selectedReaction,
+    this.absoluteStartPosition,
   })  : assert(itemScale > 0.0 && itemScale < 1),
         super(key: key);
 
@@ -158,7 +161,7 @@ class _ReactionsBoxState extends State<ReactionsBox>
           ),
           PositionedDirectional(
             top: top,
-            start: _getHorizontalPosition(),
+            start: widget.absoluteStartPosition ?? _getHorizontalPosition(),
             child: Transform.scale(
               scale: _scaleAnimation.value,
               child: AnimatedBuilder(

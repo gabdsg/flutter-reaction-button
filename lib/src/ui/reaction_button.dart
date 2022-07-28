@@ -34,9 +34,6 @@ class ReactionButton<T> extends StatefulWidget {
   /// Reactions box show/hide duration [default = 200 milliseconds]
   final Duration boxDuration;
 
-  /// Change initial reaction after selected one [default = true]
-  final bool shouldChangeReaction;
-
   /// Reactions box padding [default = EdgeInsets.zero]
   final EdgeInsetsGeometry boxPadding;
 
@@ -53,6 +50,8 @@ class ReactionButton<T> extends StatefulWidget {
 
   final T? selectedReaction;
 
+  final double? absoluteStartPosition;
+
   ReactionButton({
     Key? key,
     required this.onReactionChanged,
@@ -65,12 +64,12 @@ class ReactionButton<T> extends StatefulWidget {
     this.boxElevation = 5,
     this.boxRadius = 50,
     this.boxDuration = const Duration(milliseconds: 200),
-    this.shouldChangeReaction = true,
     this.boxPadding = EdgeInsets.zero,
     this.boxReactionSpacing = 0,
     this.itemScale = .3,
     this.itemScaleDuration,
     this.selectedReaction,
+    this.absoluteStartPosition,
   }) : super(key: key);
 
   @override
@@ -79,8 +78,6 @@ class ReactionButton<T> extends StatefulWidget {
 
 class _ReactionButtonState<T> extends State<ReactionButton<T>> {
   final GlobalKey _buttonKey = GlobalKey();
-
-  Reaction? _selectedReaction;
 
   void _init() {}
 
@@ -129,6 +126,7 @@ class _ReactionButtonState<T> extends State<ReactionButton<T>> {
             reactionSpacing: widget.boxReactionSpacing,
             itemScale: widget.itemScale,
             itemScaleDuration: widget.itemScaleDuration,
+            absoluteStartPosition: widget.absoluteStartPosition,
             selectedReaction: Reaction(
               icon: SizedBox(),
               value: widget.selectedReaction,
@@ -143,9 +141,5 @@ class _ReactionButtonState<T> extends State<ReactionButton<T>> {
 
   void _updateReaction(Reaction<T> reaction) {
     widget.onReactionChanged.call(reaction.value);
-    if (mounted && widget.shouldChangeReaction)
-      setState(() {
-        _selectedReaction = reaction;
-      });
   }
 }
